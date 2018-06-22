@@ -5,6 +5,7 @@ import android.content.Context;
 import com.alibaba.fastjson.JSON;
 import com.example.yinlian.tariff.model.AppInfoJSon;
 import com.example.yinlian.tariff.model.DeviceInfoJSon;
+import com.example.yinlian.tariff.model.ReqApiParam;
 import com.example.yinlian.tariff.model.ReqDetailJson;
 import com.socks.library.KLog;
 import com.ums.upos.sdk.exception.CallServiceException;
@@ -66,6 +67,64 @@ public class RepObj {
 
 
 
+
+        return jsonObject;
+    }
+    public static JSONObject netRespParameFast(Context context, int swichCount,BaseSystemManager baseSystemManager){
+
+        JSONObject jsonObject =new JSONObject();
+       ////请求参数
+        ReqDetailJson reqDetailJson=new ReqDetailJson();
+        switch (swichCount){
+            case 0:
+                reqDetailJson.setTariffDescList("默认套餐内容,默认套餐二");
+                break;
+            case 1:
+                reqDetailJson.setTariffDesc("默认套餐内容");
+                break;
+            case 2:
+                reqDetailJson.setTariffDesc("默认套餐内容");//套餐描述(文字说明)
+                reqDetailJson.setPaymentPrice("1200");//套餐总价
+                reqDetailJson.setPurchaseQuantity("20");//购买套餐的数量
+                reqDetailJson.setPaymentTerm("30");//购买套餐的总周期
+                break;
+            case 3:
+                reqDetailJson.setTariffDescList("默认套餐内容,默认套餐二");
+                break;
+
+        }
+
+       ////应用信息
+        ReqApiParam.AppInfoBean appInfoJSon = new ReqApiParam.AppInfoBean();
+        appInfoJSon.setAppName("靓丽前台-银商版");
+        appInfoJSon.setAppId("afd2baf088034179b4c98826b4d9fcca");
+        String appPackname= Utills.getAppProcessName(context);//获取包名
+        appInfoJSon.setAppPackName("com.shboka.beautyorderums");
+        appInfoJSon.setAppVersionCode("3.0.6.1");
+       ////设备信息
+        ReqApiParam.DeviceInfoBean deviceInfoJSon = new ReqApiParam.DeviceInfoBean();
+        deviceInfoJSon.setProdCode("19");//产品型号
+        deviceInfoJSon.setFirmCode("109");//厂商代码
+          //获取sn
+        String deviceInfoMap  = null;
+        try {
+            deviceInfoMap = baseSystemManager.readSN();
+           //   deviceInfoMap=baseSystemManager.getDeviceInfo().toString();
+        } catch (SdkException e) {
+            e.printStackTrace();
+        } catch (CallServiceException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e){
+        }
+        deviceInfoJSon.setDeviceSn("0820043480");//终端硬件序列号
+
+        ReqApiParam  reqApiParam=new ReqApiParam();
+        reqApiParam.setAppInfo(appInfoJSon);//应用信息
+        reqApiParam.setDeviceInfo(deviceInfoJSon);//设备信息
+        reqApiParam.setReqDetail(JSON.toJSONString(reqDetailJson));//请求参数
+        reqApiParam.setInterType("BMP-QUERY");//接口类型
+        reqApiParam.setMac("ums2018"); //通讯校验参数
+        reqApiParam.setVersion("001");//接口版本号：默认为“001”
 
         return jsonObject;
     }

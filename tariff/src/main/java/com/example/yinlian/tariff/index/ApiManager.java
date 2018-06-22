@@ -67,7 +67,41 @@ public class ApiManager {
     public void getTariffInfo( RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
         this.respCallBack=respCallBack;
         this.respErrorCallBack=respErrorCallBack;
-        handler.sendEmptyMessage(0);
+        Message message=new Message();
+        message.arg1=0;
+        message.obj=UrUtil.findTariffInfoList;
+        message.what=0;
+        handler.sendMessage(message);
+
+    }
+    public void getForTrial( RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
+        this.respCallBack=respCallBack;
+        this.respErrorCallBack=respErrorCallBack;
+        Message message=new Message();
+        message.arg1=1;
+        message.obj=UrUtil.forTrial;
+        message.what=0;
+        handler.sendMessage(message);
+
+    }
+    public void getRecordPaymentInfo ( RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
+        this.respCallBack=respCallBack;
+        this.respErrorCallBack=respErrorCallBack;
+        Message message=new Message();
+        message.arg1=2;
+        message.obj=UrUtil.recordPaymentInfo;
+        message.what=0;
+        handler.sendMessage(message);
+
+    }
+    public void getOrderInfo( RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
+        this.respCallBack=respCallBack;
+        this.respErrorCallBack=respErrorCallBack;
+        Message message=new Message();
+        message.arg1=3;
+        message.obj=UrUtil.getOrderInfo;
+        message.what=0;
+        handler.sendMessage(message);
 
     }
 
@@ -77,9 +111,9 @@ public class ApiManager {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    JSONObject jsonObjectParam=RepObj.netRespParame(context,baseSystemManager);
+                    JSONObject jsonObjectParam=RepObj.netRespParameFast(context,msg.arg1,baseSystemManager);
                     String  dd =jsonObjectParam.toString();
-                    JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, UrUtil.findTariffInfoList, jsonObjectParam, new Response.Listener<JSONObject>() {
+                    JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, msg.obj.toString(), jsonObjectParam, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             respCallBack.onResponse(response.toString());
