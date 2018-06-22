@@ -72,8 +72,13 @@ public class RepObj {
     }
     public static JSONObject netRespParameFast(Context context, int swichCount,BaseSystemManager baseSystemManager){
 
-        JSONObject jsonObject =new JSONObject();
-       ////请求参数
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject("{}");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ////请求参数
         ReqDetailJson reqDetailJson=new ReqDetailJson();
         switch (swichCount){
             case 0:
@@ -126,6 +131,11 @@ public class RepObj {
         reqApiParam.setMac("ums2018"); //通讯校验参数
         reqApiParam.setVersion("001");//接口版本号：默认为“001”
 
+        try {
+            jsonObject=new JSONObject(JSON.toJSONString(reqApiParam));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return jsonObject;
     }
 }
