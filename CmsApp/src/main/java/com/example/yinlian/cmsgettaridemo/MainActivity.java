@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 }, new ApiManager.RespErrorCallBack() {
                     @Override
                     public void onError(String errorStr) {
-                        KLog.json("ApiMa",errorStr);
+                        KLog.d("ApiMa",errorStr);
                     }
                 });
             }

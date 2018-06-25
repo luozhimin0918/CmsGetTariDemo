@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -134,6 +135,10 @@ public class ApiManager {
                             return headers;
                         }
                     };
+
+                    stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     requestQueue.add(stringRequest);
                     break;
             }
