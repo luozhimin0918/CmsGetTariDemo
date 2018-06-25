@@ -1,1 +1,1 @@
-include ':CmsApp', ':tariff'
+include ':CmsApp', ':tariff',':app'
