@@ -12,6 +12,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.yinlian.tariff.model.ReqDetailJson;
 import com.socks.library.KLog;
 import com.ums.upos.sdk.exception.SdkException;
 import com.ums.upos.sdk.system.BaseSystemManager;
@@ -66,10 +67,12 @@ public class ApiManager {
     RespCallBack respCallBack;
     RespErrorCallBack respErrorCallBack;
     private String appId;
-    public void getTariffInfo( String appId,RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
+    private ReqDetailJson reqDetailJson;
+    public void getTariffInfo(String appId, ReqDetailJson reqDetailJson, RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
         this.respCallBack=respCallBack;
         this.respErrorCallBack=respErrorCallBack;
         this.appId=appId;
+        this.reqDetailJson=reqDetailJson;
         Message message=new Message();
         message.arg1=0;
         message.obj=UrUtil.findTariffInfoList;
@@ -114,7 +117,7 @@ public class ApiManager {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    JSONObject jsonObjectParam=RepObj.netRespParameFast(context,appId,msg.arg1,baseSystemManager);
+                    JSONObject jsonObjectParam=RepObj.netRespParameFast(context,appId,reqDetailJson,msg.arg1,baseSystemManager);
                     String  dd =jsonObjectParam.toString();
                     JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, msg.obj.toString(), jsonObjectParam, new Response.Listener<JSONObject>() {
                         @Override

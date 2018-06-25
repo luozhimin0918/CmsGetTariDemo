@@ -70,7 +70,7 @@ public class RepObj {
 
         return jsonObject;
     }
-    public static JSONObject netRespParameFast(Context context,String appId, int swichCount,BaseSystemManager baseSystemManager){
+    public static JSONObject netRespParameFast(Context context,String appId,ReqDetailJson reqDetailJson, int swichCount,BaseSystemManager baseSystemManager){
 
         JSONObject jsonObject = null;
         try {
@@ -79,7 +79,7 @@ public class RepObj {
             e.printStackTrace();
         }
         ////请求参数
-        ReqDetailJson reqDetailJson=new ReqDetailJson();
+     /*   ReqDetailJson reqDetailJson=new ReqDetailJson();
         switch (swichCount){
             case 0:
                 reqDetailJson.setTariffDescList("默认套餐内容,默认套餐二");
@@ -98,7 +98,7 @@ public class RepObj {
                 break;
 
         }
-
+*/
        ////应用信息
         ReqApiParam.AppInfoBean appInfoJSon = new ReqApiParam.AppInfoBean();
         appInfoJSon.setAppName("靓丽前台-银商版");

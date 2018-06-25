@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.yinlian.tariff.index.ApiManager;
+import com.example.yinlian.tariff.model.ReqDetailJson;
 import com.socks.library.KLog;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
                /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
                ApiManager apiManager=ApiManager.getInstance(getApplicationContext());
-                apiManager.getTariffInfo("afd2baf088034179b4c98826b4d9fcca",new ApiManager.RespCallBack() {
+                ReqDetailJson reqDetailJson=new ReqDetailJson();
+                        reqDetailJson.setTariffDescList("默认套餐内容,默认套餐二");
+                apiManager.getTariffInfo("afd2baf088034179b4c98826b4d9fcca",reqDetailJson,new ApiManager.RespCallBack() {
                     @Override
                     public void onResponse(String jsonRespString) {
                         KLog.json("ApiMa",jsonRespString);
