@@ -70,7 +70,7 @@ public class RepObj {
 
         return jsonObject;
     }
-    public static JSONObject netRespParameFast(Context context, int swichCount,BaseSystemManager baseSystemManager){
+    public static JSONObject netRespParameFast(Context context,String appId, int swichCount,BaseSystemManager baseSystemManager){
 
         JSONObject jsonObject = null;
         try {
@@ -102,7 +102,7 @@ public class RepObj {
        ////应用信息
         ReqApiParam.AppInfoBean appInfoJSon = new ReqApiParam.AppInfoBean();
         appInfoJSon.setAppName("靓丽前台-银商版");
-        appInfoJSon.setAppId("afd2baf088034179b4c98826b4d9fcca");
+        appInfoJSon.setAppId(appId);//"afd2baf088034179b4c98826b4d9fcca"
         String appPackname= Utills.getAppProcessName(context);//获取包名
         String appName=Utills.getAppName(context);//获取应用名
         String versionCode=Utills.getVersionName(context);//获取版本名

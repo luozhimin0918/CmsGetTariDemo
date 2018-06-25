@@ -65,9 +65,11 @@ public class ApiManager {
     }
     RespCallBack respCallBack;
     RespErrorCallBack respErrorCallBack;
-    public void getTariffInfo( RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
+    private String appId;
+    public void getTariffInfo( String appId,RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
         this.respCallBack=respCallBack;
         this.respErrorCallBack=respErrorCallBack;
+        this.appId=appId;
         Message message=new Message();
         message.arg1=0;
         message.obj=UrUtil.findTariffInfoList;
@@ -112,7 +114,7 @@ public class ApiManager {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    JSONObject jsonObjectParam=RepObj.netRespParameFast(context,msg.arg1,baseSystemManager);
+                    JSONObject jsonObjectParam=RepObj.netRespParameFast(context,appId,msg.arg1,baseSystemManager);
                     String  dd =jsonObjectParam.toString();
                     JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, msg.obj.toString(), jsonObjectParam, new Response.Listener<JSONObject>() {
                         @Override

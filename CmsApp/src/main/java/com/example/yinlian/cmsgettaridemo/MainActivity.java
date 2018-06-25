@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
                ApiManager apiManager=ApiManager.getInstance(getApplicationContext());
-                apiManager.getTariffInfo(new ApiManager.RespCallBack() {
+                apiManager.getTariffInfo("afd2baf088034179b4c98826b4d9fcca",new ApiManager.RespCallBack() {
                     @Override
                     public void onResponse(String jsonRespString) {
                         KLog.json("ApiMa",jsonRespString);
