@@ -104,6 +104,8 @@ public class RepObj {
         appInfoJSon.setAppName("靓丽前台-银商版");
         appInfoJSon.setAppId("afd2baf088034179b4c98826b4d9fcca");
         String appPackname= Utills.getAppProcessName(context);//获取包名
+        String appName=Utills.getAppName(context);//获取应用名
+        String versionCode=Utills.getVersionName(context);//获取版本名
         appInfoJSon.setAppPackName("com.shboka.beautyorderums");
         appInfoJSon.setAppVersionCode("3.0.6.1");
        ////设备信息
@@ -114,7 +116,7 @@ public class RepObj {
         String deviceInfoMap  = null;
         try {
             deviceInfoMap = baseSystemManager.readSN();
-           //   deviceInfoMap=baseSystemManager.getDeviceInfo().toString();
+              deviceInfoMap=baseSystemManager.getDeviceInfo().toString();
         } catch (SdkException e) {
             e.printStackTrace();
         } catch (CallServiceException e) {
