@@ -119,6 +119,7 @@ public class ApiManager {
                 case 0:
                     JSONObject jsonObjectParam=RepObj.netRespParameFast(context,appId,reqDetailJson,msg.arg1,baseSystemManager);
                     String  dd =jsonObjectParam.toString();
+                    KLog.json(dd);
                     JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, msg.obj.toString(), jsonObjectParam, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

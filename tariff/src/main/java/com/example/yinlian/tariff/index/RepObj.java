@@ -73,11 +73,6 @@ public class RepObj {
     public static JSONObject netRespParameFast(Context context,String appId,ReqDetailJson reqDetailJson, int swichCount,BaseSystemManager baseSystemManager){
 
         JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject("{}");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         ////请求参数
      /*   ReqDetailJson reqDetailJson=new ReqDetailJson();
         switch (swichCount){
@@ -101,17 +96,17 @@ public class RepObj {
 */
        ////应用信息
         ReqApiParam.AppInfoBean appInfoJSon = new ReqApiParam.AppInfoBean();
-        appInfoJSon.setAppName("靓丽前台-银商版");
+        appInfoJSon.setAppName("E核销");
         appInfoJSon.setAppId(appId);//"afd2baf088034179b4c98826b4d9fcca"
         String appPackname= Utills.getAppProcessName(context);//获取包名
         String appName=Utills.getAppName(context);//获取应用名
         String versionCode=Utills.getVersionName(context);//获取版本名
-        appInfoJSon.setAppPackName("com.shboka.beautyorderums");
-        appInfoJSon.setAppVersionCode("3.0.6.1");
+        appInfoJSon.setAppPackName("com.ums.ecard");
+        appInfoJSon.setAppVersionCode("1.0.15");
        ////设备信息
         ReqApiParam.DeviceInfoBean deviceInfoJSon = new ReqApiParam.DeviceInfoBean();
         deviceInfoJSon.setProdCode("19");//产品型号
-        deviceInfoJSon.setFirmCode("109");//厂商代码
+        deviceInfoJSon.setFirmCode("LANDI APOS A8");//厂商代码
           //获取sn
         String deviceInfoMap  = null;
         try {
@@ -123,18 +118,30 @@ public class RepObj {
             e.printStackTrace();
         }catch (NullPointerException e){
         }
-        deviceInfoJSon.setDeviceSn("0820043480");//终端硬件序列号
+        deviceInfoJSon.setDeviceSn("50630309");//终端硬件序列号
 
-        ReqApiParam  reqApiParam=new ReqApiParam();
-        reqApiParam.setAppInfo(appInfoJSon);//应用信息
-        reqApiParam.setDeviceInfo(deviceInfoJSon);//设备信息
+     /*   ReqApiParam  reqApiParam=new ReqApiParam();
         reqApiParam.setReqDetail(JSON.toJSONString(reqDetailJson));//请求参数
+        reqApiParam.setAppInfo(JSON.toJSONString(appInfoJSon));//应用信息
         reqApiParam.setInterType("BMP-QUERY");//接口类型
-        reqApiParam.setMac("ums2018"); //通讯校验参数
         reqApiParam.setVersion("001");//接口版本号：默认为“001”
+        reqApiParam.setDeviceInfo(JSON.toJSONString(deviceInfoJSon));//设备信息
+//        reqApiParam.setMac("ums2018"); //通讯校验参数
 
+*/
+
+        jsonObject=new JSONObject();
         try {
-            jsonObject=new JSONObject(JSON.toJSONString(reqApiParam));
+            jsonObject.put("reqDetail",JSON.toJSONString(reqDetailJson));
+            jsonObject.put("appInfo",JSON.toJSONString(appInfoJSon));
+            jsonObject.put("interType","BMP-QUERY");
+            jsonObject.put("version","001");
+            jsonObject.put("deviceInfo",JSON.toJSONString(deviceInfoJSon));
+
+
+            String allStr=jsonObject.toString();
+            String textTwo =AesUtil.encrypt(allStr,"d12fa7e992fa4ef3");
+            jsonObject.put("mac",textTwo);
         } catch (JSONException e) {
             e.printStackTrace();
         }

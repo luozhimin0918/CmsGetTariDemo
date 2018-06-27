@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();*/
                ApiManager apiManager=ApiManager.getInstance(getApplicationContext());
                 ReqDetailJson reqDetailJson=new ReqDetailJson();
-                        reqDetailJson.setTariffDescList("默认套餐内容,默认套餐二");
-                apiManager.getTariffInfo("afd2baf088034179b4c98826b4d9fcca",reqDetailJson,new ApiManager.RespCallBack() {
+                        reqDetailJson.setTariffDescList("");
+                apiManager.getTariffInfo("4637b348589c493fbac91b6b5f0029f1",reqDetailJson,new ApiManager.RespCallBack() {
                     @Override
                     public void onResponse(String jsonRespString) {
                         KLog.json("ApiMa",jsonRespString);
