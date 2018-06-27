@@ -71,8 +71,8 @@ public class RepObj {
         return jsonObject;
     }
     public static JSONObject netRespParameFast(Context context,String appId,ReqDetailJson reqDetailJson, int swichCount,BaseSystemManager baseSystemManager){
-
-        JSONObject jsonObject = null;
+        JSONObject  retuJSonObje=null;
+        com.alibaba.fastjson.JSONObject jsonObject = null;
         ////请求参数
      /*   ReqDetailJson reqDetailJson=new ReqDetailJson();
         switch (swichCount){
@@ -130,8 +130,8 @@ public class RepObj {
 
 */
 
-        jsonObject=new JSONObject();
-        try {
+        jsonObject=new com.alibaba.fastjson.JSONObject();
+
             jsonObject.put("reqDetail",JSON.toJSONString(reqDetailJson));
             jsonObject.put("appInfo",JSON.toJSONString(appInfoJSon));
             jsonObject.put("interType","BMP-QUERY");
@@ -139,12 +139,18 @@ public class RepObj {
             jsonObject.put("deviceInfo",JSON.toJSONString(deviceInfoJSon));
 
 
-            String allStr=jsonObject.toString();
+//            String allStr =  com.alibaba.fastjson.JSONObject.toJSONString(jsonObject, SerializerFeature.PrettyFormat);
+            String allStr= jsonObject.toString();
+            KLog.d("REp",allStr);
             String textTwo =AesUtil.encrypt(allStr,"d12fa7e992fa4ef3");
             jsonObject.put("mac",textTwo);
+
+
+        try {
+           retuJSonObje= new JSONObject(jsonObject.toJSONString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonObject;
+        return retuJSonObje;
     }
 }
