@@ -80,9 +80,11 @@ public class ApiManager {
         handler.sendMessage(message);
 
     }
-    public void getForTrial( RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
+    public void getForTrial(String appId, ReqDetailJson reqDetailJson, RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
         this.respCallBack=respCallBack;
         this.respErrorCallBack=respErrorCallBack;
+        this.appId=appId;
+        this.reqDetailJson=reqDetailJson;
         Message message=new Message();
         message.arg1=1;
         message.obj=UrUtil.forTrial;
@@ -90,9 +92,11 @@ public class ApiManager {
         handler.sendMessage(message);
 
     }
-    public void getRecordPaymentInfo ( RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
+    public void getRecordPaymentInfo ( String appId, ReqDetailJson reqDetailJson,RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
         this.respCallBack=respCallBack;
         this.respErrorCallBack=respErrorCallBack;
+        this.appId=appId;
+        this.reqDetailJson=reqDetailJson;
         Message message=new Message();
         message.arg1=2;
         message.obj=UrUtil.recordPaymentInfo;
@@ -100,9 +104,11 @@ public class ApiManager {
         handler.sendMessage(message);
 
     }
-    public void getOrderInfo( RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
+    public void getOrderInfo(String appId, ReqDetailJson reqDetailJson, RespCallBack respCallBack, RespErrorCallBack respErrorCallBack){
         this.respCallBack=respCallBack;
         this.respErrorCallBack=respErrorCallBack;
+        this.appId=appId;
+        this.reqDetailJson=reqDetailJson;
         Message message=new Message();
         message.arg1=3;
         message.obj=UrUtil.getOrderInfo;
