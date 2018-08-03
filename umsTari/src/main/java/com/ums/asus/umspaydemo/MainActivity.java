@@ -129,6 +129,19 @@ public class MainActivity extends AppCompatActivity {
                 });
                 break;
             case R.id.taocanThree:
+                ReqDetailJson reqDetailJsonTh = new ReqDetailJson();
+                reqDetailJsonTh.setTariffDescList("");
+                apiManager.getOrderInfo("4637b348589c493fbac91b6b5f0029f1", reqDetailJsonTh, new ApiManager.RespCallBack() {
+                    @Override
+                    public void onResponse(String jsonRespString) {
+                        KLog.json(jsonRespString);
+                    }
+                }, new ApiManager.RespErrorCallBack() {
+                    @Override
+                    public void onError(String errorStr) {
+                        KLog.d(errorStr);
+                    }
+                });
                 break;
         }
     }
