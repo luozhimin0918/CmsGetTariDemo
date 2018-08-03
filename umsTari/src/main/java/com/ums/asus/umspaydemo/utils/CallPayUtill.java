@@ -92,9 +92,9 @@ public class CallPayUtill {
             String resultCode = getJSONString(resultJson, "state");
             String resultMsg = getJSONString(resultJson, "msg");
             String payResult = getJSONString(resultJson, "payResult");//支付结果，"00"支付失败，"01"支付成功，"02"支付渠道尚未同步支付结果（或未支付）
-           KLog.json(result);
+           KLog.json(TAG,result);
             if (!"01".equals(resultCode)) { // 接口调用失败
-                Looper.prepare();
+               /* Looper.prepare();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -103,7 +103,7 @@ public class CallPayUtill {
 
                     }
                 }, 0);
-                Looper.loop();
+                Looper.loop();*/
                 KLog.d(TAG,"接口调用失败");
                 return;
             }
