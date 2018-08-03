@@ -112,7 +112,7 @@ public class CallPayUtill {
                 return;
             }
             if ("01".equals(payResult)) {//支付成功
-                Toast.makeText(context,"支付成功",Toast.LENGTH_LONG);
+//                Toast.makeText(context,"支付成功",Toast.LENGTH_LONG);
                 KLog.d(TAG,"支付成功");
 
             } else if ("02".equals(payResult)) {//支付渠道尚未同步支付结果（或未支付）
@@ -125,7 +125,7 @@ public class CallPayUtill {
                 }, 1000);
             } else {// unpaid
                 //重新去支付
-                Toast.makeText(context,"重新去支付",Toast.LENGTH_LONG);
+//                Toast.makeText(context,"重新去支付",Toast.LENGTH_LONG);
                 KLog.d(TAG,"重新去支付");
             }
         } catch (Exception e) {
