@@ -2,6 +2,7 @@ package com.ums.asus.umspaydemo.utils;
 
 import android.content.Context;
 import android.nfc.Tag;
+import android.os.Looper;
 import android.util.Log;
 
 import com.socks.library.KLog;
@@ -91,9 +92,18 @@ public class CallPayUtill {
             String resultCode = getJSONString(resultJson, "state");
             String resultMsg = getJSONString(resultJson, "msg");
             String payResult = getJSONString(resultJson, "payResult");//支付结果，"00"支付失败，"01"支付成功，"02"支付渠道尚未同步支付结果（或未支付）
-
+           KLog.json(result);
             if (!"01".equals(resultCode)) { // 接口调用失败
-                Toast.makeText(context,"接口调用失败",Toast.LENGTH_LONG);
+                Looper.prepare();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(context,"接口调用失败",Toast.LENGTH_LONG);
+
+                    }
+                }, 0);
+                Looper.loop();
                 KLog.d(TAG,"接口调用失败");
                 return;
             }
