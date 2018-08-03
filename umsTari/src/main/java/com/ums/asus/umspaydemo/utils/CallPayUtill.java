@@ -60,11 +60,15 @@ public class CallPayUtill {
             public String getPayParamData(int payType) {
                 // TODO Auto-generated method stub
                 KLog.d(TAG, "-getPayParamData-payType:"+payType);
+
                 if (payType == AppInteractHelper.PayListener.PAY_TYPE_CREDITCARD) {
+                    KLog.d(creditcardParamData.toString());
                     return creditcardParamData.toString();
                 } else if (payType == AppInteractHelper.PayListener.PAY_TYPE_QR) {
+                    KLog.d(qrParamData.toString());
                     return qrParamData.toString();
                 }
+
                 return null;
             }
             @Override
