@@ -1,6 +1,7 @@
 package com.ums.asus.umspaydemo.utils;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.util.Log;
 
 import com.socks.library.KLog;
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import android.os.Handler;
+import android.widget.Toast;
 
 
 /**
@@ -22,12 +24,14 @@ public class CallPayUtill {
 
     private static final String TAG = "CallPayUtillLog";//调用者权限值
 
-    private static final String mAppKey = "xxxx";//调用者权限值
-    private static final String mGoodsName = "商品名称";
-    private static final String mAmount = "100";//支付总金额，单位：分
+    private static  String mAppKey = "d12fa7e992fa4ef383bc49f2040fc40e";//调用者权限值
+    private static  String mGoodsName = "商品名称";
+    private static  String mAmount = "";//支付总金额，单位：分
+    private static  String mPackName="com.ums.ecard";
 
     //--服务费（分润，第三方应用可用）
-    public void testC(Context context) {
+    public   void CallPaytestC(Context context,int mAmount) {
+        this.mAmount=mAmount*100+"";//单位为分，整数的字符串格式
         JSONObject paramData = new JSONObject();
         try {
             paramData.put("dataType", "203");
@@ -43,7 +47,7 @@ public class CallPayUtill {
         String curtime = sdf.format(date);
         try {
             creditcardParamData.put("appKey", mAppKey);						//调用者权限值
-            creditcardParamData.put("packName", context.getPackageName());	//调用者包名
+            creditcardParamData.put("packName",mPackName);	//调用者包名
             creditcardParamData.put("goodsName", mGoodsName);					//商品名称
             creditcardParamData.put("amount", mAmount);						//支付总金额，单位：分
             creditcardParamData.put("curtime", curtime);					//时间戳
@@ -76,7 +80,7 @@ public class CallPayUtill {
             @Override
             public void onPayReturned(int payType, String result) {
                 // TODO Auto-generated method stub
-                Log.i(TAG, "-onPayReturned-payType:"+payType+", result:"+result);
+                KLog.i(TAG, "-onPayReturned-payType:"+payType+", result:"+result);
                 onPayResult(context, result);
             }
         });
@@ -89,9 +93,13 @@ public class CallPayUtill {
             String payResult = getJSONString(resultJson, "payResult");//支付结果，"00"支付失败，"01"支付成功，"02"支付渠道尚未同步支付结果（或未支付）
 
             if (!"01".equals(resultCode)) { // 接口调用失败
+                Toast.makeText(context,"接口调用失败",Toast.LENGTH_LONG);
+                KLog.d(TAG,"接口调用失败");
                 return;
             }
             if ("01".equals(payResult)) {//支付成功
+                Toast.makeText(context,"支付成功",Toast.LENGTH_LONG);
+                KLog.d(TAG,"支付成功");
 
             } else if ("02".equals(payResult)) {//支付渠道尚未同步支付结果（或未支付）
                 new Handler().postDelayed(new Runnable() {
@@ -103,6 +111,8 @@ public class CallPayUtill {
                 }, 1000);
             } else {// unpaid
                 //重新去支付
+                Toast.makeText(context,"重新去支付",Toast.LENGTH_LONG);
+                KLog.d(TAG,"重新去支付");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,8 +158,9 @@ public class CallPayUtill {
                 mBillInfo.setBillNo(getJSONString(resultData, "billNo"));
                 mBillInfo.setBillDate(getJSONString(resultData, "billDate"));
                 mBillInfo.setRespon(getJSONString(resultData, "respon"));//内购时才有此数据
+                KLog.json(TAG,result);
             } catch (Exception e) {
-                Log.e(TAG, "-Exception:"+e.toString());
+               KLog.e(TAG, "-Exception:"+e.toString());
             }
         }
     }
@@ -178,11 +189,11 @@ public class CallPayUtill {
     public JSONObject installBillInfo() {
         try {
             JSONObject billInfo = new JSONObject();
-            billInfo.put("totalAmount", "100");         	 //支付总金额，单位：分
+            billInfo.put("totalAmount", mAmount);         	 //支付总金额，单位：分
             JSONObject good = new JSONObject();
-            good.put("quantity",  "10");			 //商品数量
+            good.put("quantity",  "1");			 //商品数量
             good.put("goodsId",  "0001");			 //商品ID
-            good.put("price",  "10");                //商品单价，单位：分
+            good.put("price",  mAmount);                //商品单价，单位：分
             good.put("goodsCategory",  "0001");      //商品分类
             good.put("body",  "商品说明");            //商品说明
             good.put("goodsName",  mGoodsName);       //商品名称

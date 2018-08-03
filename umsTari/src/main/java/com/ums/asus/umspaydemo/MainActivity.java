@@ -1,5 +1,6 @@
 package com.ums.asus.umspaydemo;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.example.yinlian.tariff.index.ApiManager;
 import com.example.yinlian.tariff.model.ReqDetailJson;
 import com.socks.library.KLog;
+import com.ums.asus.umspaydemo.utils.CallPayUtill;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.taocanOne:
+               new CallPayUtill().CallPaytestC(this,10);
                 break;
             case R.id.taocanTwo:
                 break;
