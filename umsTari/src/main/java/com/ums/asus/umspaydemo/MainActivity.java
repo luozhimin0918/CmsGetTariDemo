@@ -27,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
     TextView taocanTwo;
     @BindView(R.id.taocanThree)
     TextView taocanThree;
-
+    ApiManager apiManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        ApiManager apiManager = ApiManager.getInstance(getApplicationContext());
+         apiManager = ApiManager.getInstance(getApplicationContext());
         ReqDetailJson reqDetailJson = new ReqDetailJson();
         reqDetailJson.setTariffDescList("");
         apiManager.getTariffInfo("4637b348589c493fbac91b6b5f0029f1", reqDetailJson, new ApiManager.RespCallBack() {
@@ -111,6 +111,22 @@ public class MainActivity extends AppCompatActivity {
                new CallPayUtill().CallPaytestC(this,10);
                 break;
             case R.id.taocanTwo:
+                ReqDetailJson reqDetailJson = new ReqDetailJson();
+                reqDetailJson.setTariffDesc("半年");
+                reqDetailJson.setPaymentPrice("60");
+                reqDetailJson.setPurchaseQuantity("1");
+                reqDetailJson.setPaymentTerm("半年");
+                apiManager.getRecordPaymentInfo("4637b348589c493fbac91b6b5f0029f1", reqDetailJson, new ApiManager.RespCallBack() {
+                    @Override
+                    public void onResponse(String jsonRespString) {
+                         KLog.json(jsonRespString);
+                    }
+                }, new ApiManager.RespErrorCallBack() {
+                    @Override
+                    public void onError(String errorStr) {
+                        KLog.d(errorStr);
+                    }
+                });
                 break;
             case R.id.taocanThree:
                 break;
