@@ -108,7 +108,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         ApiManager apiManager=ApiManager.getInstance(this);
-        apiManager.getTariffInfo(new ApiManager.RespCallBack() {
+        com.example.yinlian.tariff.model.ReqDetailJson reqDetailJson = new com.example.yinlian.tariff.model.ReqDetailJson();
+        reqDetailJson.setTariffDescList("");
+        apiManager.getTariffInfo("4637b348589c493fbac91b6b5f0029f1",reqDetailJson,new ApiManager.RespCallBack() {
             @Override
             public void onResponse(String jsonRespString) {
                       KLog.json("ApiMa",jsonRespString);
